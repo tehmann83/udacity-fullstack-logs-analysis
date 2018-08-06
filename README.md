@@ -16,10 +16,14 @@ The final report answers these questions:
 
 ## How to run the program
 
+Download the data [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
+and unzip the file after downloading it.
+
 1. `Cd` into `vagrant` directory
 2. Run `$ vagrant up`
 3. Run `$ vagrant ssh` to connect to the VM.
 4. Connect to database via `psql -d news -f newsdata.sql`
+5. Run `$python log_analysis.py` to execute the program.
 
 
 ## Views
@@ -27,18 +31,18 @@ The final report answers these questions:
 To answer question 3, two views were created:
 
 ``` sql
-create view requests as
-  select date(time) as date, count(status) as requests
-  from log
-  group by date;
+CREATE VIEW requests AS
+  SELECT DATE(time) AS date, count(status) AS requests
+  FROM log
+  GROUP BY date;
 ```
 
 ``` sql
-create view errors as
-  select date(time) as date, count(status) as errors
-  from log
-  where status = '404 NOT FOUND'
-  group by date;
+CREATE VIEW errors AS
+  SELECT DATE(time) AS date, count(status) AS errors
+  FROM log
+  WHERE status = '404 NOT FOUND'
+  GROUP BY date;
 ```
 
 ## Output
